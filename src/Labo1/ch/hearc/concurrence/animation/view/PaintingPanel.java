@@ -19,11 +19,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.sound.sampled.Line;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import ch.hearc.concurrence.animation.controller.AreaConcurrencyController_A;
 import ch.hearc.concurrence.animation.controller.ElementController;
+import ch.hearc.concurrence.animation.model.LineArea;
+import ch.hearc.concurrence.animation.model.RectangleArea;
+import ch.hearc.concurrence.animation.solution.BarrierArea;
+import ch.hearc.concurrence.animation.solution.ReentrantLockArea;
+import ch.hearc.concurrence.animation.solution.SemaphoreArea;
 
 public class PaintingPanel extends JPanel {
 
@@ -38,6 +44,11 @@ public class PaintingPanel extends JPanel {
 
 	public PaintingPanel(MainFrame mainFrame) {
 		addListeners();
+
+		listConcurrencyArea.add(new SemaphoreArea(new RectangleArea(200, 200, 200, 200, Color.BLUE), 3));
+		listConcurrencyArea.add(new SemaphoreArea(new RectangleArea(0, 0, 200, 200, Color.ORANGE), 1));
+		listConcurrencyArea.add(new BarrierArea(new LineArea(0, 0, 1, 1, Color.GREEN), 6));
+		listConcurrencyArea.add(new ReentrantLockArea(new LineArea(500, 0, 0, 1, Color.RED)));
 
 		// TODO: Implémenter des classes dérivant de "AreaConcurrencyController_A",
 		// puis en ajouter des instances dans "listConcurrencyArea" afin qu'elles
